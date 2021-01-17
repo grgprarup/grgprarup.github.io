@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Portfolio</title>
+    <style>
+        .main{
+        text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+  <p>Loading...</p>
+</div>
+
+<div class="main" id="mainContainer" style="display: flex; justify-content: space-around" hidden>
+  <div class="" >
+    LEFT DIV
+  </div>
+  <div>
+        <img
+                height="100"
+                width="100"
+                id="profilePicture"
+        >
+        <h2 id="fullName">
+        </h2>
+        <p id="bio">
+        </p>
+        <h5 id="followersInformation">
+        </h5>
+        <p>Check me on <a id="githubLink">GitHub</a></p>
+        <h2>My Projects on GitHub</h2>
+        <p id="reposName"></p>
+        <p ><strong>Repository Link: <strong><a id="reposLink">Link</a></p>
+        <a class="twitter-timeline" data-width="400" data-height="500" href="https://twitter.com/grg_gurung?ref_src=twsrc%5Etfw">Tweets by grg_gurung</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+  <div class="">
+    RIGHT DIV
+  </div>
+</div>
+
+
+<script>
+    fetch("https://api.github.com/users/grgprarup/repos")
+    .then(response => response.json())
+    .then(function(data){
+          let reposNames = `Repository Name: ${data[0]['name']}`
+          document.getElementById('reposName').textContent = reposNames
+          document.getElementById('reposLink').href = data[0]['html_url']
+    })
+    fetch("https://api.github.com/users/grgprarup")
+    .then(response => response.json())
+    .then(function(data){
+        console.log(data)
+        let followersCount = data['followers']
+        let followersInfo = `I have been followed by ${ followersCount } people on Github`
+        document.getElementById('profilePicture').src = data['avatar_url']
+        document.getElementById('fullName').textContent = data['name']
+        document.getElementById('bio').textContent = data['bio']
+        document.getElementById('followersInformation').textContent = followersInfo
+        document.getElementById('githubLink').href = data['html_url']
+        document.getElementById('loading').hidden = true
+        document.getElementById('mainContainer').hidden = false
+    })
+</script>
+
+</body>
+</html>
