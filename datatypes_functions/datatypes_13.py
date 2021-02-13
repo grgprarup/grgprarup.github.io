@@ -1,0 +1,11 @@
+"""
+    13. Write a Python program that accepts a comma separated sequence of words
+as input and prints the unique words in sorted form (alphanumerically).
+Sample Words : red, white, black, red, green, black
+Expected Result : black, green, red, white,red
+"""
+input_string = input('Enter sequence of words separated by comma: ')
+input_string_list = input_string.split(sep=',')
+print(input_string_list)
+input_string_list.sort()
+print(set(input_string_list))
